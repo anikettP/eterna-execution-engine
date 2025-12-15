@@ -2,7 +2,7 @@
 
 **High-performance trading infrastructure for Solana DEXs.**
 
-Eterna is a backend system designed to simulate institutional-grade order execution. It handles **Market Orders** by intelligently routing trades between **Raydium** and **Meteora** to ensure the best execution price, managing high concurrency with robust queue systems.
+Eterna is a backend system designed to simulate institutional-grade order execution. It handles **Market Orders** by intelligently routing trades between **Raydium** and **Meteora** to ensure the best execution price, utilizing a high-concurrency queue architecture.
 
 ---
 
@@ -17,13 +17,6 @@ Eterna is a backend system designed to simulate institutional-grade order execut
 
 ---
 
-## 🧠 Why Market Orders?
-I chose **Market Orders** to focus on the core engineering challenges of low-latency execution and optimal routing logic. This foundational engine can easily be extended:
-* **Limit Orders:** By adding a price-monitoring cron job.
-* **Sniper Orders:** By replacing the HTTP trigger with a mempool event listener.
-
----
-
 ## 🛠 Tech Stack
 
 * **Runtime:** Node.js, TypeScript
@@ -34,34 +27,17 @@ I chose **Market Orders** to focus on the core engineering challenges of low-lat
 
 ---
 
-## ⚙️ Architecture Flow
-
-1.  **POST /api/orders/execute** → Validates request & returns `orderId`.
-2.  **Order Queued** → Job added to BullMQ (Redis).
-3.  **Worker Processor** →
-    * Fetches quotes from Mock DEXs.
-    * Selects best route.
-    * Simulates on-chain transaction.
-4.  **WebSocket Stream** → Pushes real-time status updates to the client.
-5.  **Persistence** → Saves final execution data to Postgres.
-
----
-
 ## 🚀 Getting Started
-
-Follow these steps to run the engine locally.
 
 ### Prerequisites
 * Node.js (v18+)
-* Docker Desktop (Running)
+* Docker Desktop (Must be running)
 
 ### 1. Installation
 ```bash
 git clone [https://github.com/anikettP/eterna-execution-engine.git](https://github.com/anikettP/eterna-execution-engine.git)
 cd eterna-execution-engine
 npm install
-
-
 2. Start Infrastructure (DB & Queue)
 Bash
 
@@ -78,32 +54,13 @@ The server will start at http://localhost:3000.
 
 🧪 How to Test
 Option A: The Dashboard (Recommended)
-I have included a custom HTML dashboard to visualize the order flow easily.
-
 Ensure the server is running.
 
 Open the file test-client.html in your browser.
 
-Click "Confirm Transaction" to see the full lifecycle (Pending → Routing → Confirmed).
+Click "Confirm Transaction" to see the full lifecycle.
 
 Option B: Postman / API
-1. Submit Order
+POST http://localhost:3000/api/orders/execute
 
-URL: http://localhost:3000/api/orders/execute
-
-Method: POST
-
-Body:
-
-JSON
-
-{
-  "pair": "SOL-USDC",
-  "amount": 10,
-  "side": "buy"
-}
-2. Listen for Updates
-
-URL: ws://localhost:3000/ws/orders/{orderId}
-
-Method: WebSocket
+WebSocket ws://localhost:3000/ws/orders/{orderId}
