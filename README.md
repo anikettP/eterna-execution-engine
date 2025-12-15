@@ -1,4 +1,4 @@
-#  Eterna Order Execution Engine
+# 🚀 Eterna Order Execution Engine
 
 **High-performance trading infrastructure for Solana DEXs.**
 
@@ -6,7 +6,7 @@ Eterna is a backend system designed to simulate **institutional-grade order exec
 
 ---
 
-##  Architecture
+## 🏗 Architecture
 
 The system follows an **Event-Driven Architecture** to ensure **non-blocking execution**, **high throughput**, and **real-time updates**.
 
@@ -91,7 +91,7 @@ Docker Desktop (Must be running)
 1. Installation
 Bash
 
-git clone [https://github.com/anikettP/eterna-execution-engine.git](https://github.com/anikettP/eterna-execution-engine.git)
+git clone https://github.com/anikettP/eterna-execution-engine.git
 cd eterna-execution-engine
 npm install
 2. Start Infrastructure (DB & Queue)
