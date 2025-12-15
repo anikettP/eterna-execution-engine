@@ -8,30 +8,24 @@ Eterna is a backend system designed to simulate **institutional-grade order exec
 
 ---
 
-## 🏗 Architecture
 
-The system follows an **Event-Driven Architecture** to ensure **non-blocking execution**, **high throughput**, and **real-time updates**.
 
 ## 🏗 Architecture
 
 The system follows an **Event-Driven Architecture** to ensure **non-blocking execution**, **high throughput**, and **real-time updates**.
 
-```mermaid
-graph TD
-    Client["Client / Dashboard"] -->|1. POST Order| API["Fastify API"]
-    API -->|2. Enqueue Job| Redis["Redis Queue (BullMQ)"]
-    API -.->|3. Order ID| Client
-
-    subgraph Execution_Engine["Execution Engine"]
-        Worker["BullMQ Worker"] -->|4. Process Job| Router["DEX Router"]
-        Router -->|5. Fetch Quotes| DEXs["Raydium / Meteora"]
-        DEXs -->|6. Return Prices| Router
-        Router -->|7. Execute Swap| Blockchain["Solana (Mock)"]
-    end
-
-    Worker -->|8. Persist State| DB["PostgreSQL"]
-    Worker -.->|9. Stream Updates| WS["WebSocket Gateway"]
-    WS -.->|10. Live Status| Client
+src/
+├── api/
+│   ├── controllers/      # HTTP handlers
+│   ├── routes/           # Fastify routes
+│   └── websocket.ts      # WS connection handler
+├── config/               # Env vars and constants
+├── services/
+│   ├── dex/              # Mock Router logic
+│   ├── queue/            # BullMQ producer/consumer
+│   └── persistence.ts    # DB/Redis helpers
+├── types/                # TS Interfaces
+└── server.ts             # Entry point
 
 Execution Flow Summary
 Client submits an order via HTTP.
