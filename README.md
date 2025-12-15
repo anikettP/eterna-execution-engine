@@ -27,9 +27,6 @@ graph TD
     Worker -.->|9. Stream Updates| WebSocket[WS Gateway]
     WebSocket -.->|10. Live Status| Client
 
-📂 Project Structure
-Bash
-
 src/
 ├── api/
 │   ├── routes.ts         # HTTP Endpoints
@@ -39,6 +36,7 @@ src/
 │   └── queue/            # BullMQ Worker & Producer
 ├── types/                # TypeScript Interfaces
 └── app.ts                # Application Entry Point
+
 ⚡ Execution Flow Summary
 Client submits an order via HTTP.
 
