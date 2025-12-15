@@ -1,5 +1,3 @@
-
-
 #  Eterna Order Execution Engine
 
 **High-performance trading infrastructure for Solana DEXs.**
@@ -8,26 +6,39 @@ Eterna is a backend system designed to simulate **institutional-grade order exec
 
 ---
 
-
-
-## 🏗 Architecture
+##  Architecture
 
 The system follows an **Event-Driven Architecture** to ensure **non-blocking execution**, **high throughput**, and **real-time updates**.
 
+```mermaid
+graph TD
+    Client[Client / Dashboard] -->|1. POST Order| API[Fastify API]
+    API -->|2. Enqueue Job| Redis[(Redis Queue)]
+    API -.->|3. Order ID| Client
+    
+    subgraph "Execution Engine"
+        Worker[BullMQ Worker] -->|4. Process Job| Router[DEX Router]
+        Router -->|5. Fetch Quotes| DEXs{Raydium / Meteora}
+        DEXs -->|6. Return Prices| Router
+        Router -->|7. Execute Swap| Blockchain[Solana Mock]
+    end
+    
+    Worker -->|8. Persist State| DB[(PostgreSQL)]
+    Worker -.->|9. Stream Updates| WebSocket[WS Gateway]
+    WebSocket -.->|10. Live Status| Client
+📂 Project Structure
+Bash
+
 src/
 ├── api/
-│   ├── controllers/      # HTTP handlers
-│   ├── routes/           # Fastify routes
-│   └── websocket.ts      # WS connection handler
-├── config/               # Env vars and constants
+│   ├── routes.ts         # HTTP Endpoints
+│   └── websocket.ts      # WebSocket Connection Handler
 ├── services/
-│   ├── dex/              # Mock Router logic
-│   ├── queue/            # BullMQ producer/consumer
-│   └── persistence.ts    # DB/Redis helpers
-├── types/                # TS Interfaces
-└── server.ts             # Entry point
-
-Execution Flow Summary
+│   ├── dex/              # Mock DEX Router Logic
+│   └── queue/            # BullMQ Worker & Producer
+├── types/                # TypeScript Interfaces
+└── app.ts                # Application Entry Point
+⚡ Execution Flow Summary
 Client submits an order via HTTP.
 
 API validates the request and enqueues the job in Redis.
@@ -45,17 +56,17 @@ State is persisted in PostgreSQL.
 Real-time updates are streamed via WebSockets.
 
 ✨ Key Features
-⚡ Market Order Execution: Immediate processing at the best available price.
+⚡ Market Order Execution: Immediate execution at the best available price.
 
-🔀 Smart DEX Routing: Queries Raydium & Meteora quotes in real-time to select the optimal venue.
+🔀 Smart DEX Routing: Real-time price comparison between Raydium and Meteora.
 
-📡 Real-Time Updates: WebSocket streaming for complete order lifecycle:
+📡 Real-Time Updates: WebSocket streaming of order lifecycle:
 
 pending → routing → building → submitted → confirmed
 
-🛡 High Concurrency: BullMQ + Redis architecture handling concurrent orders with exponential backoff retries.
+🛡 High Concurrency: BullMQ + Redis for concurrent processing with retries and exponential backoff.
 
-💾 Audit & Reliability: Full order history and execution logs persisted in PostgreSQL.
+💾 Audit & Reliability: Full execution history stored in PostgreSQL.
 
 🧠 Design Decisions
 Why Market Orders?
@@ -95,7 +106,7 @@ Bash
 git clone [https://github.com/anikettP/eterna-execution-engine.git](https://github.com/anikettP/eterna-execution-engine.git)
 cd eterna-execution-engine
 npm install
-2. Start Infrastructure (DB & Queue)
+2. Start Infrastructure
 Bash
 
 docker compose up -d
