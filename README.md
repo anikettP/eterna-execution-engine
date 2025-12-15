@@ -1,4 +1,4 @@
-﻿# 🚀 Eterna Order Execution Engine
+﻿# Eterna Order Execution Engine
 
 **High-performance trading infrastructure for Solana DEXs.**
 
@@ -6,18 +6,18 @@ Eterna is a backend system designed to simulate institutional-grade order execut
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-* **⚡ Market Order Execution:** Immediate processing at the best available price.
-* **🔀 Smart DEX Routing:** Queries Raydium & Meteora quotes in real-time to select the optimal venue.
-* **📡 Real-Time Updates:** WebSocket streaming for live status feedback:
+* ** Market Order Execution:** Immediate processing at the best available price.
+* ** Smart DEX Routing:** Queries Raydium & Meteora quotes in real-time to select the optimal venue.
+* ** Real-Time Updates:** WebSocket streaming for live status feedback:
     * `pending` → `routing` → `building` → `submitted` → `confirmed`
-* **🛡 High Concurrency:** BullMQ + Redis architecture handling concurrent orders with exponential backoff retries.
-* **💾 Audit & Reliability:** Full order history and execution logs persisted in PostgreSQL.
+* ** High Concurrency:** BullMQ + Redis architecture handling concurrent orders with exponential backoff retries.
+* ** Audit & Reliability:** Full order history and execution logs persisted in PostgreSQL.
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 * **Runtime:** Node.js, TypeScript
 * **API:** Fastify (HTTP + WebSockets)
@@ -27,7 +27,7 @@ Eterna is a backend system designed to simulate institutional-grade order execut
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 * Node.js (v18+)
