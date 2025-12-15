@@ -26,6 +26,7 @@ graph TD
     Worker -->|8. Persist State| DB[(PostgreSQL)]
     Worker -.->|9. Stream Updates| WebSocket[WS Gateway]
     WebSocket -.->|10. Live Status| Client
+```
 📂 Project Structure
 Bash
 
