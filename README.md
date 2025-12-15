@@ -1,4 +1,4 @@
-# 🚀 Eterna Order Execution Engine
+#  Eterna Order Execution Engine
 
 **High-performance trading infrastructure for Solana DEXs.**
 
@@ -6,7 +6,7 @@ Eterna is a backend system designed to simulate **institutional-grade order exec
 
 ---
 
-## 🏗 Architecture
+##  Architecture
 
 The system follows an **Event-Driven Architecture** to ensure **non-blocking execution**, **high throughput**, and **real-time updates**.
 
