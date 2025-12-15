@@ -1,3 +1,12 @@
+You are spot on. The error Parse error on line 16 confirms that the text "Execution Flow Summary" was pasted inside the Mermaid code block (before the closing backticks), confusing the diagram generator.
+
+Here is the corrected version. I have separated the diagram from the text properly.
+
+1. Fix the README.md file
+Overwrite your README.md file with this exact content:
+
+Markdown
+
 # 🚀 Eterna Order Execution Engine
 
 **High-performance trading infrastructure for Solana DEXs.**
@@ -91,7 +100,7 @@ Docker Desktop (Must be running)
 1. Installation
 Bash
 
-git clone https://github.com/anikettP/eterna-execution-engine.git
+git clone [https://github.com/anikettP/eterna-execution-engine.git](https://github.com/anikettP/eterna-execution-engine.git)
 cd eterna-execution-engine
 npm install
 2. Start Infrastructure (DB & Queue)
