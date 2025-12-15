@@ -6,7 +6,7 @@ Eterna is a backend system designed to simulate **institutional-grade order exec
 
 ---
 
-##  Architecture
+## Architecture
 
 The system follows an **Event-Driven Architecture** to ensure **non-blocking execution**, **high throughput**, and **real-time updates**.
 
@@ -26,6 +26,7 @@ graph TD
     Worker -->|8. Persist State| DB[(PostgreSQL)]
     Worker -.->|9. Stream Updates| WebSocket[WS Gateway]
     WebSocket -.->|10. Live Status| Client
+
 📂 Project Structure
 Bash
 
